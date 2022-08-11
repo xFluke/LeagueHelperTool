@@ -21,8 +21,9 @@ public class DataManager : MonoBehaviour
 
         var matchList = riotAPIHandler.GetMatchList(gameName, tagLine);
 
-        foreach (var match in matchList) {
-            CreateMatchInfoPanel(match);
+        foreach (var matchID in matchList) {
+            CreateMatchInfoPanel(matchID);
+            GetAllPlayersInMatch(matchID);
         }
     }
 
@@ -31,4 +32,15 @@ public class DataManager : MonoBehaviour
         matchInfoPanel.GetComponent<MatchInfoPanel>().Initialize(matchID);
     }
 
+    private void GetAllPlayersInMatch(string matchID) {
+        List<PlayerInfo> playerInfos = new List<PlayerInfo>();
+
+        var match = riotAPIHandler.GetMatch(matchID);
+        foreach (var player in match.Info.Participants) {
+            PlayerInfo playerInfo = new PlayerInfo(player.SummonerName, player.ChampionName, player.Kills, player.Deaths, player.Assists);
+            playerInfos.Add(playerInfo);
+        }
+
+        FindObjectOfType<GoogleAPIHandler>().AddMatchToSheet(playerInfos);
+    }
 }

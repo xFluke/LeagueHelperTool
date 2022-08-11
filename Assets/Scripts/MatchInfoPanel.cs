@@ -22,6 +22,7 @@ public class MatchInfoPanel : MonoBehaviour
             PlayerInfo playerInfo = new PlayerInfo(players[i].SummonerName, players[i].ChampionName, players[i].Kills, players[i].Deaths, players[i].Assists);
             GameObject playerInfoPanel = Instantiate(playerInfoPanelPrefab, redTeamTransform);
             playerInfoPanel.GetComponent<PlayerInfoPanel>().Initialize(playerInfo);
+
         }
     }
 
@@ -32,6 +33,7 @@ public class MatchInfoPanel : MonoBehaviour
             PlayerInfo playerInfo = new PlayerInfo(players[i].SummonerName, players[i].ChampionName, players[i].Kills, players[i].Deaths, players[i].Assists);
             GameObject playerInfoPanel = Instantiate(playerInfoPanelPrefab, blueTeamTransform);
             playerInfoPanel.GetComponent<PlayerInfoPanel>().Initialize(playerInfo);
+
         }
     }
 }

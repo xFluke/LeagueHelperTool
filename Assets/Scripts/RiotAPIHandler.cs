@@ -38,7 +38,7 @@ public class RiotAPIHandler : MonoBehaviour
 
     public string[] GetMatchList(string gameName, string tagLine) {
         var puuid = riotAPI.AccountV1().GetByRiotId(RegionalRoute.AMERICAS, gameName, tagLine).Puuid;
-        var matchList = riotAPI.MatchV5().GetMatchIdsByPUUIDAsync(RegionalRoute.AMERICAS, puuid, 8, null, Camille.Enums.Queue.SUMMONERS_RIFT_5V5_RANKED_FLEX).Result;
+        var matchList = riotAPI.MatchV5().GetMatchIdsByPUUIDAsync(RegionalRoute.AMERICAS, puuid, 6, null, Camille.Enums.Queue.SUMMONERS_RIFT_5V5_RANKED_FLEX).Result;
         return matchList;
     }
 }
