@@ -11,7 +11,7 @@ public class RiotAPIHandler : MonoBehaviour
 {
     [SerializeField] string API_KEY;
     //private RiotApi riotAPI;
-    private RiotGamesApi riotAPI;  
+    private RiotGamesApi riotAPI;
 
     private Dictionary<int, string> ChampionIDDictionary;
 
@@ -23,11 +23,22 @@ public class RiotAPIHandler : MonoBehaviour
         riotAPI = RiotGamesApi.NewInstance(API_KEY);
 
         var match = riotAPI.MatchV5().GetMatchAsync(RegionalRoute.AMERICAS, "NA1_4401423195").Result;
-        foreach (var participant in match.Info.Participants) {
-            PlayerInfo playerInfo = new PlayerInfo(participant.SummonerName, participant.ChampionName);
-            GameObject playerInfoPanel = Instantiate(playerInfoPanelPrefab, parent);
-            playerInfoPanel.GetComponent<PlayerInfoPanel>().SetChampionImage(participant.ChampionName);
-        }
+        //foreach (var participant in match.Info.Participants) {
+        //    PlayerInfo playerInfo = new PlayerInfo(participant.SummonerName, participant.ChampionName);
+        //    GameObject playerInfoPanel = Instantiate(playerInfoPanelPrefab, parent);
+        //    playerInfoPanel.GetComponent<PlayerInfoPanel>().SetChampionImage(participant.ChampionName);
+        //}
     }
 
+    public Camille.RiotGames.MatchV5.Match GetMatch(string matchID) {
+        var match = riotAPI.MatchV5().GetMatchAsync(RegionalRoute.AMERICAS, matchID).Result;
+
+        return match;
+    }
+
+    public string[] GetMatchList(string gameName, string tagLine) {
+        var puuid = riotAPI.AccountV1().GetByRiotId(RegionalRoute.AMERICAS, gameName, tagLine).Puuid;
+        var matchList = riotAPI.MatchV5().GetMatchIdsByPUUIDAsync(RegionalRoute.AMERICAS, puuid, 8, null, Camille.Enums.Queue.SUMMONERS_RIFT_5V5_RANKED_FLEX).Result;
+        return matchList;
+    }
 }

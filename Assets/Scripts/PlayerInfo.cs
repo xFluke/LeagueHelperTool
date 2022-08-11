@@ -13,8 +13,11 @@ public class PlayerInfo
     public int Deaths { get; private set; }
     public int Assists { get; private set; }
 
-    public PlayerInfo(string name, string champion) {
+    public PlayerInfo(string name, string champion, int kills, int deaths, int assists) {
         this.Name = name;
         this.Champion = champion;
+        this.Kills = kills;
+        this.Deaths = deaths;
+        this.Assists = assists;
     }
 }
